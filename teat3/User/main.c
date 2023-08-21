@@ -8,6 +8,10 @@
     \param[out] none
     \retval     none
 */
+
+
+
+
 int main(void)
 {
     rcu_periph_clock_enable(RCU_GPIOA);
@@ -18,7 +22,7 @@ int main(void)
 		gpio_mode_set(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO_PIN_3);
     gpio_output_options_set(GPIOA, GPIO_OTYPE_PP, GPIO_OTYPE_PP,  GPIO_PIN_3);
     gpio_bit_reset(GPIOA,  GPIO_PIN_3);
-	
+
 		gpio_mode_set(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO_PIN_4);
     gpio_output_options_set(GPIOA, GPIO_OTYPE_PP, GPIO_OTYPE_PP,  GPIO_PIN_4);
     gpio_bit_reset(GPIOA,  GPIO_PIN_4);

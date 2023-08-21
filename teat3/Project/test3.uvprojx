@@ -533,6 +533,26 @@
               <FileType>1</FileType>
               <FilePath>..\User\systick.c</FilePath>
             </File>
+            <File>
+              <FileName>RTC6705.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTC6705.c</FilePath>
+            </File>
+            <File>
+              <FileName>SPI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SPI.c</FilePath>
+            </File>
+            <File>
+              <FileName>SPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\SPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>RTC6705.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\RTC6705.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
