@@ -3,19 +3,12 @@
 #include "gd32f1x0.h"
 #include "systick.h"
 
-#define SPI_PORTB GPIOB
-#define SPI_MOSI GPIO_PIN_4
-#define SPI_NSS   GPIO_PIN_3
-
-#define SPI_PORTA GPIOA
-#define SPI_SCK  GPIO_PIN_15
-
 #define SPI_MODE0 0
 #define SPI_MODE1 1
 #define SPI_MODE2 2
 #define SPI_MODE3 3
 
-void SPI_init(void);
+void SPI_init_(void);
 void SPI_init_io(void);
 void SPI_init_mode(uint8_t spi_mode);
 
