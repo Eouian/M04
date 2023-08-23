@@ -18,7 +18,7 @@ void SPI_W_NSS(uint8_t bit_value);
 uint8_t SPI_swap(uint8_t byte_to_send);
 void SPI_W_SCK(uint8_t bit_value);
 void SPI_W_MOSI(uint8_t bit_value);
-uint8_t SPI_R_MISO(void);
+//uint8_t SPI_R_MISO(void);
 
 void SPI_end(void);
 

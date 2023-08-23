@@ -31,3 +31,5 @@
 .\objects\main.o: ..\Library\Include\gd32f1x0_tsi.h
 .\objects\main.o: ..\User\systick.h
 .\objects\main.o: E:\KEIL\Core\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\main.o: ..\Project\SPI.h
+.\objects\main.o: ..\Project\RTC6705.h
