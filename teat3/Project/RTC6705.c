@@ -3,7 +3,6 @@
 #include "SPI.h"
 
 
-void RTC6705_frequency(uint32_t f_to_compute);
 void RTC6705_io_init(void)
 {
 	//VREF
