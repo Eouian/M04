@@ -90,7 +90,7 @@ void delay_1us(uint32_t count)
     \param[out] none
     \retval     none
 */
-void delay_1ms(uint32_t count)
+  void delay_1ms(uint32_t count)
 {
     uint32_t ctl;
     

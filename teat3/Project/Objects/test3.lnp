@@ -28,6 +28,8 @@
 ".\objects\systick.o"
 ".\objects\rtc6705.o"
 ".\objects\spi.o"
+".\objects\adc.o"
+".\objects\pwm.o"
 --strict --scatter ".\Objects\test3.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

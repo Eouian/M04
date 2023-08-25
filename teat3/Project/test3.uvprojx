@@ -553,6 +553,21 @@
               <FileType>5</FileType>
               <FilePath>.\RTC6705.h</FilePath>
             </File>
+            <File>
+              <FileName>ADC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ADC.c</FilePath>
+            </File>
+            <File>
+              <FileName>PWM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\PWM.c</FilePath>
+            </File>
+            <File>
+              <FileName>PWM.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\PWM.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
