@@ -30,3 +30,4 @@
 .\objects\adc.o: ..\Library\Include\gd32f1x0_wwdgt.h
 .\objects\adc.o: ..\Library\Include\gd32f1x0_misc.h
 .\objects\adc.o: ..\Library\Include\gd32f1x0_tsi.h
+.\objects\adc.o: ..\User\systick.h

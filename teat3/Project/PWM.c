@@ -32,7 +32,7 @@ void PWM_Output(uint16_t PSC, uint16_t ARR, uint16_t Val)
     timer_ocinitpara.ocnidlestate = TIMER_OCN_IDLE_STATE_LOW;    
     timer_channel_output_config(TIMER2, TIMER_CH_1, &timer_ocinitpara);
     timer_channel_output_pulse_value_config(TIMER2, TIMER_CH_1, Val);           
-    timer_channel_output_mode_config(TIMER2, TIMER_CH_1, TIMER_OC_MODE_PWM1);       
+    timer_channel_output_mode_config(TIMER2, TIMER_CH_1, TIMER_OC_MODE_PWM0);       
     timer_channel_output_shadow_config(TIMER2, TIMER_CH_1, TIMER_OC_SHADOW_DISABLE);
     timer_primary_output_config(TIMER2, ENABLE);
     

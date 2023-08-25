@@ -34,3 +34,4 @@
 .\objects\main.o: ..\Project\SPI.h
 .\objects\main.o: ..\Project\RTC6705.h
 .\objects\main.o: ..\Project\PWM.h
+.\objects\main.o: ..\Project\ADC.h

@@ -722,7 +722,7 @@ I (..\Library\Include\gd32f1x0_wwdgt.h)(0x62FB642C)
 I (..\Library\Include\gd32f1x0_misc.h)(0x62FB642C)
 I (..\Library\Include\gd32f1x0_tsi.h)(0x62FB642C)
 I (..\User\systick.h)(0x62FB642D)
-F (..\User\main.c)(0x64E75FC0)(--c99 --gnu -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Library\Include -I ..\User -I ..\Project-I.\RTE\_Target_1-IE:\KEIL\Pack\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-IE:\KEIL\Core\ARM\CMSIS\Include-D__UVISION_VERSION="528" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (..\User\main.c)(0x64E846D5)(--c99 --gnu -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Library\Include -I ..\User -I ..\Project-I.\RTE\_Target_1-IE:\KEIL\Pack\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-IE:\KEIL\Core\ARM\CMSIS\Include-D__UVISION_VERSION="528" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (..\CMSIS\gd32f1x0.h)(0x62FB642B)
 I (..\CMSIS\core_cm3.h)(0x62FB642B)
 I (E:\KEIL\Core\ARM\ARMCC\include\stdint.h)(0x5CEB79E2)
@@ -756,7 +756,8 @@ I (..\User\systick.h)(0x62FB642D)
 I (E:\KEIL\Core\ARM\ARMCC\include\stdio.h)(0x5CEB79E2)
 I (..\Project\SPI.h)(0x64E5767E)
 I (..\Project\RTC6705.h)(0x64E5DD72)
-I (..\Project\PWM.h)(0x64E75F90)
+I (..\Project\PWM.h)(0x64E81770)
+I (..\Project\ADC.h)(0x64E82600)
 F (..\User\systick.c)(0x64E71692)(--c99 --gnu -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Library\Include -I ..\User -I ..\Project-I.\RTE\_Target_1-IE:\KEIL\Pack\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-IE:\KEIL\Core\ARM\CMSIS\Include-D__UVISION_VERSION="528" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER-o .\objects\systick.o --omf_browse .\objects\systick.crf --depend .\objects\systick.d)
 I (..\CMSIS\gd32f1x0.h)(0x62FB642B)
 I (..\CMSIS\core_cm3.h)(0x62FB642B)
@@ -855,7 +856,7 @@ I (..\Library\Include\gd32f1x0_tsi.h)(0x62FB642C)
 I (..\User\systick.h)(0x62FB642D)
 F (.\SPI.h)(0x64E5767E)()
 F (.\RTC6705.h)(0x64E5DD72)()
-F (.\ADC.c)(0x64E6D186)(--c99 --gnu -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Library\Include -I ..\User -I ..\Project-I.\RTE\_Target_1-IE:\KEIL\Pack\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-IE:\KEIL\Core\ARM\CMSIS\Include-D__UVISION_VERSION="528" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER-o .\objects\adc.o --omf_browse .\objects\adc.crf --depend .\objects\adc.d)
+F (.\ADC.c)(0x64E822FD)(--c99 --gnu -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Library\Include -I ..\User -I ..\Project-I.\RTE\_Target_1-IE:\KEIL\Pack\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-IE:\KEIL\Core\ARM\CMSIS\Include-D__UVISION_VERSION="528" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER-o .\objects\adc.o --omf_browse .\objects\adc.crf --depend .\objects\adc.d)
 I (..\Library\Include\gd32f1x0_adc.h)(0x62FB642C)
 I (..\CMSIS\gd32f1x0.h)(0x62FB642B)
 I (..\CMSIS\core_cm3.h)(0x62FB642B)
@@ -885,7 +886,8 @@ I (..\Library\Include\gd32f1x0_usart.h)(0x62FB642C)
 I (..\Library\Include\gd32f1x0_wwdgt.h)(0x62FB642C)
 I (..\Library\Include\gd32f1x0_misc.h)(0x62FB642C)
 I (..\Library\Include\gd32f1x0_tsi.h)(0x62FB642C)
-F (.\PWM.c)(0x64E75F90)(--c99 --gnu -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Library\Include -I ..\User -I ..\Project-I.\RTE\_Target_1-IE:\KEIL\Pack\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-IE:\KEIL\Core\ARM\CMSIS\Include-D__UVISION_VERSION="528" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER-o .\objects\pwm.o --omf_browse .\objects\pwm.crf --depend .\objects\pwm.d)
+I (..\User\systick.h)(0x62FB642D)
+F (.\PWM.c)(0x64E84B4C)(--c99 --gnu -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Library\Include -I ..\User -I ..\Project-I.\RTE\_Target_1-IE:\KEIL\Pack\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-IE:\KEIL\Core\ARM\CMSIS\Include-D__UVISION_VERSION="528" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER-o .\objects\pwm.o --omf_browse .\objects\pwm.crf --depend .\objects\pwm.d)
 I (..\CMSIS\gd32f1x0.h)(0x62FB642B)
 I (..\CMSIS\core_cm3.h)(0x62FB642B)
 I (E:\KEIL\Core\ARM\ARMCC\include\stdint.h)(0x5CEB79E2)
@@ -917,4 +919,5 @@ I (..\Library\Include\gd32f1x0_misc.h)(0x62FB642C)
 I (..\Library\Include\gd32f1x0_tsi.h)(0x62FB642C)
 I (E:\KEIL\Core\ARM\ARMCC\include\stdio.h)(0x5CEB79E2)
 I (..\User\systick.h)(0x62FB642D)
-F (.\PWM.h)(0x64E75F90)()
+F (.\PWM.h)(0x64E81770)()
+F (.\ADC.h)(0x64E82600)()

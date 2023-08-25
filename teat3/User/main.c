@@ -4,6 +4,7 @@
 #include "SPI.h"
 #include "RTC6705.h"
 #include "PWM.h"
+#include "ADC.h"
 
 uint16_t const VTX_Freq[]=
 {
@@ -18,19 +19,24 @@ uint16_t const VTX_Freq[]=
 void RTC6705_io_init(void);
 void RTC6705_send(uint32_t addr,uint32_t data);
 void RTC6705_frequency(uint32_t f_to_compute);
-
+uint16_t Val;
 int main(void)
 {
     systick_config();
 	//  delay_1ms(1000);
+		//frequency
 		SPI_init_();
 	  RTC6705_io_init();
 		RTC6705_send(0x00000000,400);//R = 400
 	  RTC6705_frequency(2900000000);
+		//PWM
 		PWM_Output(4-1, 1000-1, 199);
-		
+		//ADC
+		ADC_IO_init();
+		ADC_config();
     while(1)
 			{
-				  
+				delay_1ms(500);
+				Val=ADC_Get_Channel(ADC_REGULAR_CHANNEL);
 			}
 }
