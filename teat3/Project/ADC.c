@@ -14,15 +14,20 @@ void ADC_config(void)
 	adc_channel_length_config(ADC_REGULAR_CHANNEL,1U);
 	adc_external_trigger_source_config(ADC_REGULAR_CHANNEL,ADC_EXTTRIG_REGULAR_NONE);
 	adc_software_trigger_enable(ADC_REGULAR_CHANNEL);
-	adc_external_trigger_config(ADC_REGULAR_CHANNEL,ENABLE);
+	adc_external_trigger_config(ADC_REGULAR_CHANNEL,DISABLE);
+	adc_special_function_config(ADC_SCAN_MODE,DISABLE);
+	adc_special_function_config(ADC_CONTINUOUS_MODE,DISABLE);
+	adc_regular_channel_config(0U,ADC_CHANNEL_1,ADC_SAMPLETIME_239POINT5);//239.5*0.125us
+	adc_dma_mode_disable();//DMA
+	
 	adc_enable();
-	delay_1ms(1U);
+	delay_1ms(10U);
 	adc_calibration_enable();
 }
 
 uint16_t ADC_Get_Channel(uint8_t channel)
 {
-	adc_regular_channel_config(0U,channel,ADC_SAMPLETIME_239POINT5);
+	
 	while(!adc_flag_get(ADC_FLAG_EOC));
 	adc_flag_clear(ADC_FLAG_EOC);
 	return (adc_regular_data_read()&0xfff);
