@@ -25,10 +25,11 @@ void ADC_config(void)
 	adc_calibration_enable();
 }
 
-uint16_t ADC_Get_Channel(uint8_t channel)
+uint16_t ADC_Get_Channel(void)
 {
-	
-	while(!adc_flag_get(ADC_FLAG_EOC));
+	adc_enable();
+	adc_software_trigger_enable(ADC_REGULAR_CHANNEL);
+	//while(!adc_flag_get(ADC_FLAG_EOC));
 	adc_flag_clear(ADC_FLAG_EOC);
-	return (adc_regular_data_read()&0xfff);
+	return adc_regular_data_read();
 }

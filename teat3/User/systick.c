@@ -109,3 +109,12 @@ void delay_1us(uint32_t count)
     /* clear the current count value */
     SysTick->VAL = 0x0000U;
 }
+void delay_1ms_user(uint16_t time)
+{    
+   uint16_t i=0;  
+   while(time--)
+   {
+      i=12000;  //user define
+      while(i--) ;    
+   }
+}

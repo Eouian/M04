@@ -35,3 +35,4 @@
 .\objects\main.o: ..\Project\RTC6705.h
 .\objects\main.o: ..\Project\PWM.h
 .\objects\main.o: ..\Project\ADC.h
+.\objects\main.o: ..\Project\PID.h
