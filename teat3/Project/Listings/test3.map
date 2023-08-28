@@ -98,11 +98,11 @@ Section Cross References
     main.o(i.main) refers to adc.o(i.ADC_IO_init) for ADC_IO_init
     main.o(i.main) refers to adc.o(i.ADC_config) for ADC_config
     main.o(i.main) refers to pid.o(i.PID_init) for PID_init
+    main.o(i.main) refers to fflt_clz.o(x$fpl$ffltu) for __aeabi_ui2f
     main.o(i.main) refers to systick.o(i.delay_1ms_user) for delay_1ms_user
     main.o(i.main) refers to adc.o(i.ADC_Get_Channel) for ADC_Get_Channel
-    main.o(i.main) refers to fflt_clz.o(x$fpl$ffltu) for __aeabi_ui2f
     main.o(i.main) refers to pid.o(i.PID_calculate) for PID_calculate
-    main.o(i.main) refers to main.o(.data) for Val
+    main.o(i.main) refers to main.o(.data) for target_mode
     systick.o(i.delay_1ms) refers to fflt_clz.o(x$fpl$ffltu) for __aeabi_ui2f
     systick.o(i.delay_1ms) refers to fmul.o(x$fpl$fmul) for __aeabi_fmul
     systick.o(i.delay_1ms) refers to ffixu.o(x$fpl$ffixu) for __aeabi_f2uiz
@@ -1612,7 +1612,7 @@ Image component sizes
         76          8          0          0          0        992   gd32f1x0_misc.o
        248         22          0          0          0       1902   gd32f1x0_rcu.o
       1174         54          0          0          0       5703   gd32f1x0_timer.o
-       224         36          0         28          0       2072   main.o
+       224         36          0         28          0       2068   main.o
        198          6          0          0          0       1975   pid.o
        196          8          0          0          0        685   pwm.o
        270         12          0          0          0       1489   rtc6705.o
@@ -1622,7 +1622,7 @@ Image component sizes
        196         28          0          8          0       1522   systick.o
 
     ----------------------------------------------------------------------
-      4430        298        304         40       2048      80940   Object Totals
+      4430        298        304         40       2048      80936   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         12          0          0          0          0          0   (incl. Padding)
 
@@ -1683,8 +1683,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      6268        414        304         40       2144      78648   Grand Totals
-      6268        414        304         40       2144      78648   ELF Image Totals
+      6268        414        304         40       2144      78644   Grand Totals
+      6268        414        304         40       2144      78644   ELF Image Totals
       6268        414        304         40          0          0   ROM Totals
 
 ==============================================================================

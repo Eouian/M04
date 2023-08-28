@@ -722,7 +722,7 @@ I (..\Library\Include\gd32f1x0_wwdgt.h)(0x62FB642C)
 I (..\Library\Include\gd32f1x0_misc.h)(0x62FB642C)
 I (..\Library\Include\gd32f1x0_tsi.h)(0x62FB642C)
 I (..\User\systick.h)(0x64EA7279)
-F (..\User\main.c)(0x64EA89E6)(--c99 --gnu -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Library\Include -I ..\User -I ..\Project-I.\RTE\_Target_1-IE:\KEIL\Pack\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-IE:\KEIL\Core\ARM\CMSIS\Include-D__UVISION_VERSION="528" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (..\User\main.c)(0x64EB2D91)(--c99 --gnu -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Library\Include -I ..\User -I ..\Project-I.\RTE\_Target_1-IE:\KEIL\Pack\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-IE:\KEIL\Core\ARM\CMSIS\Include-D__UVISION_VERSION="528" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (..\CMSIS\gd32f1x0.h)(0x62FB642B)
 I (..\CMSIS\core_cm3.h)(0x62FB642B)
 I (E:\KEIL\Core\ARM\ARMCC\include\stdint.h)(0x5CEB79E2)
