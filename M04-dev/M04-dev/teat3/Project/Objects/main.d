@@ -36,3 +36,6 @@
 .\objects\main.o: ..\Project\PWM.h
 .\objects\main.o: ..\Project\ADC.h
 .\objects\main.o: ..\Project\PID.h
+.\objects\main.o: ..\Project\UART.h
+.\objects\main.o: ..\Project\SmartAudio.h
+.\objects\main.o: D:\01_SoftWare\keil5\ARM\ARMCC\Bin\..\include\string.h

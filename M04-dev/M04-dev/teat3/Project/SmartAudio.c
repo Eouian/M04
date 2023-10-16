@@ -40,7 +40,7 @@ static uint8_t CRC8(const uint8_t *data, uint8_t Len)
 	return crc;
 }
 
-void SmartAudio_tx(uint8_t *buff)
+uint8_t SmartAudio_tx(uint8_t *buff)//整理打包数据帧
 {
 	buff[0] = 0x00;
 	buff[1] = 0xAA;
@@ -60,7 +60,7 @@ void SmartAudio_tx(uint8_t *buff)
 			buff[5] = Unify.Channel;
 			buff[6] = Unify.Power;
 			buff[7] = Unify.Mode;
-			buff[8] = Unify.Frequency>>8;//高频先发
+			buff[8] = Unify.Frequency>>8;//高8位先发
 			buff[9] = Unify.Frequency;
 			buff[10] = CRC8(&buff[3],7);
 			buff[11] = 0x00;
@@ -100,51 +100,85 @@ void SmartAudio_tx(uint8_t *buff)
 			else 
 			{
 				tx_len = 0;
-				//memset(buff,0,
+				memset(buff,0,USART_buffsize);
 			}
+			break;
+		default:
+			tx_len = 0;
+			memset(buff,0,USART_buffsize);
+			break;
 	}
+	return tx_len;//返回数据帧的实际长度，用于后续打包发送
 }
-uint8_t SmartAudio_rx(uint8_t *buff, uint8_t buff_len)
+
+uint8_t SmartAudio_rx(uint8_t *buff, uint8_t buff_len)//接收解析Host命令
 {
 	uint8_t Count;
 	uint8_t len;
 	uint8_t CRC_calculate;
 	uint8_t CRC_frame;
 	//<0x00><0xAA><0x55><cmd><length><data><crc>
-	for(Count = 0;Count<buff_len;Count ++)
+	for(Count = 0;Count<buff_len-3;Count ++)
 	{
 		if(buff[Count] == 0xAA && buff[Count+1] == 0x55)
 		{
-			len =buff[Count+3]; 
-			CRC_calculate = CRC8(&buff[Count], len+4);
-			CRC_frame = buff[Count+3+len+1];
-			if(CRC_frame == CRC_calculate)//CRC校验通过
+			if(buff[Count+3] < (buff_len-Count-4))//判定数据帧能否完整存储在缓冲区
 			{
-				Unify.HostCmd = buff[Count+2]>>1;
-				switch(Unify.HostCmd)//开始进行HostCmd解析
+				len =buff[Count+3]; 
+				CRC_calculate = CRC8(&buff[Count], len+4);
+				CRC_frame = buff[Count+3+len+1];
+				if(CRC_frame == CRC_calculate)//判定CRC校验是否通过
 				{
-					case SmartAudioCmd_GetSettingV1:
-						break;
-					case SmartAudioCmd_SetPower:
-						Unify.Power = buff[Count+4];
-						break;
-					case SmartAudioCmd_SetChannel:
-						Unify.Channel = buff[Count+4];
-						break;
-					case SmartAudioCmd_SetFrequency:
-						Unify.Frequency = (uint16_t)buff[Count+4]<<8;
-						Unify.Frequency |= (uint16_t)buff[Count+5];
-						break;
-					case SmartAudioCmd_SetOperation_mode:
-						if(Unify.Version == SmartAudio_V2) Unify.Mode = buff[Count+3];
-						else Unify.Mode = SmartAudio_in_range_PitMode;
-						break;
-					default:
-						break;
-				}return 1;
+					Unify.HostCmd = buff[Count+2]>>1;
+					switch(Unify.HostCmd)//开始进行HostCmd解析
+					{
+						case SmartAudioCmd_GetSettingV1:
+							break;
+						case SmartAudioCmd_SetPower:
+							Unify.Power = buff[Count+4];
+							break;
+						case SmartAudioCmd_SetChannel:
+							Unify.Channel = buff[Count+4];
+							break;
+						case SmartAudioCmd_SetFrequency:
+							Unify.Frequency = (uint16_t)buff[Count+4]<<8;
+							Unify.Frequency |= (uint16_t)buff[Count+5];
+							break;
+						case SmartAudioCmd_SetOperation_mode:
+							if(Unify.Version == SmartAudio_V2) Unify.Mode = buff[Count+3];
+							else Unify.Mode = SmartAudio_in_range_PitMode;
+							break;
+						default:
+							break;
+					}return 1;
+				}
 			}
 		}			
 	}return 0;
 }
 
+void SmartAudio_VTX_send(void)//VTX发送数据包
+{
+	USART_send_only();
+	USART0_buff_Ctrl.send_buff_len = SmartAudio_tx(USART0_buff_Ctrl.BUFF_send);
+	USART_send_buffer(USART0_buff_Ctrl.BUFF_send,USART0_buff_Ctrl.send_buff_len);//实际发送处理
+	
+	memset(USART0_buff_Ctrl.BUFF_send,0,USART_buffsize);//清空缓存区
+	USART0_buff_Ctrl.send_buff_len = 0;//发送缓存区数据包长度值归零
+	USART0_buff_Ctrl.FLAG_send_complete = 0;
+}
+
+void  SmartAudio_VTX_updatestate(void)
+{
+	if(SmartAudio_rx(USART0_buff_Ctrl.BUFF_receive,USART0_buff_Ctrl.receive_buff_len) == 1)//判定当前缓冲区内的帧是否有效
+	{
+		USART0_buff_Ctrl.FLAG_send_complete = 1;
+		//delay_1ms(20);
+		SmartAudio_VTX_send();
+	}
+	memset(USART0_buff_Ctrl.BUFF_receive,0,USART_buffsize);
+	USART0_buff_Ctrl.receive_buff_len = 0;
+	USART0_buff_Ctrl.FLAG_receive_complete = 0;
+	USART_start_receive();
+}
 

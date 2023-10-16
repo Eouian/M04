@@ -4,9 +4,9 @@
 //四个功率档位
 const uint16_t voltage_mode[4]=
 {
-		0x01F4,0x0320,0x0424,0x0546
+		0x01D6,0x02EE,0x03C0,0x04D8
 };//14,20,23,26功率档对应的电压值
-																  //500,800,1060,1350
+																  //470,750,960,1240
 
 void PID_init(PID_parameter *pid,float p,float i,float d,
 																 float I_max,float out_max)

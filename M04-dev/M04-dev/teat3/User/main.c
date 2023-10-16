@@ -6,6 +6,9 @@
 #include "PWM.h"
 #include "ADC.h"
 #include "PID.h"
+#include "UART.h"
+#include "SmartAudio.h"
+
 
 //array of frequency
 uint16_t const VTX_Freq[]=
@@ -31,30 +34,43 @@ int main(void)
 {
     systick_config();
 		//frequency
-		SPI_init_();
-	  RTC6705_io_init();//VREF, BIAS
-		RTC6705_send(0x00000000,400);//REGA, R = 400
-	  RTC6705_frequency(2900000000);//5.8G
+	SPI_init_();
+	RTC6705_io_init();//VREF, BIAS
+	RTC6705_send(0x00000000,400);//REGA, R = 400
+	RTC6705_frequency(2900000000);//5.8G
 		//PWM
-		PWM_Output(2-1, 2000-1, 198);//PSC, ARR, VAL
+	PWM_Output(4-1, 1000-1, 129);//PSC, ARR, VAL
 		//ADC
-		ADC_IO_init();//Vpd
-		ADC_config();
+	ADC_IO_init();//Vpd
+	ADC_config();
 		//PID
-		PID_init(&pid_voltage,0.06,0,0.01,0,30);//p, i, d, I_max, O_max
-		set_target(&pid_voltage,3);//PID目标值设置
-		
+	PID_init(&pid_voltage,0.02,0,0.01,0,30);//p, i, d, I_max, O_max
+	set_target(&pid_voltage,3);//PID目标值设置
+	led_init();	
+	//gpio_bit_set(GPIOA, GPIO_PIN_3);
+		//USART0
+	USART0_init(4800);//smartaudio标定值4800
+	USART_receive_only();
+	//printf("Eouian");
+	//uint8_t a[4] = {0x66,0x77,0x88,0x99};
     while(1)
-			{
-				
-				delay_1ms_user(50);
-				Val=ADC_Get_Channel();
-				feedbackVal = Val;//将此刻的电压值作为PID的输入值
-				num ++;
-				PID_calculate(&pid_voltage,feedbackVal);//进行一次PID运算
-				ActuatorOutput = pid_voltage.ActuatorOutput;
-				output = pid_voltage.Output;
-				timer_channel_output_pulse_value_config(TIMER2, TIMER_CH_1, pid_voltage.ActuatorOutput);//PID运算结果作用于PWM
-				
-			}
+	{
+		
+		delay_1ms_user(10);
+		Val=ADC_Get_Channel();
+		feedbackVal = Val;//将此刻的电压值作为PID的输入值
+		num ++;
+		PID_calculate(&pid_voltage,feedbackVal);//进行一次PID运算
+		ActuatorOutput = pid_voltage.ActuatorOutput;
+		output = pid_voltage.Output;
+		timer_channel_output_pulse_value_config(TIMER2, TIMER_CH_1, pid_voltage.ActuatorOutput);//PID运算结果作用于PWM
+		//gpio_bit_set(GPIOA, GPIO_PIN_3);
+		//delay_1ms_user(1000);
+		//printf("123");
+		//gpio_bit_reset(GPIOA,GPIO_PIN_3);
+		//USART_send_buffer(a,3);
+		if(USART0_buff_Ctrl.FLAG_receive_complete == 1)
+			SmartAudio_VTX_updatestate();
+		
+	}
 }

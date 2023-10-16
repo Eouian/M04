@@ -1,7 +1,11 @@
+#ifndef SMARTAUDIO_H
+#define SMARTAUDIO_H
+
 #include "gd32f1x0.h"
 #include <stdio.h>
 #include "systick.h"
-
+#include "UART.h"
+#include<string.h>
 //frame structure:<Start code> <Commands> <Frame length> <Payload> <CRC>
 
 //Command
@@ -30,6 +34,7 @@
 #define SmartAudio_disable_PitMode 		0x04//off only
 #define SmartAudio_lock_unlock_VTX 		0x08//0:lock,1:unlock
 
+
 typedef struct
 {
 	uint8_t Version;
@@ -39,7 +44,9 @@ typedef struct
 	uint16_t Frequency;
 	uint8_t HostCmd;
 }SmartAudio_UNIFY;
-void SmartAudio_tx(uint8_t *buff);//SmartAudio打包发送应答主机
+uint8_t SmartAudio_tx(uint8_t *buff);//SmartAudio打包发送应答主机
 uint8_t SmartAudio_rx(uint8_t *buff, uint8_t buff_len);//SmartAudio接收主机请求命令
+void SmartAudio_VTX_send(void);
+void  SmartAudio_VTX_updatestate(void);
 
-
+#endif

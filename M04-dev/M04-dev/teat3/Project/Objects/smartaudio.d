@@ -32,3 +32,5 @@
 .\objects\smartaudio.o: ..\Library\Include\gd32f1x0_tsi.h
 .\objects\smartaudio.o: D:\01_SoftWare\keil5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\smartaudio.o: ..\User\systick.h
+.\objects\smartaudio.o: UART.h
+.\objects\smartaudio.o: D:\01_SoftWare\keil5\ARM\ARMCC\Bin\..\include\string.h
