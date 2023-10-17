@@ -69,7 +69,7 @@ int main(void)
 		//printf("123");
 		//gpio_bit_reset(GPIOA,GPIO_PIN_3);
 		//USART_send_buffer(a,3);
-		if(USART0_buff_Ctrl.FLAG_receive_complete == 1)
+		if(USART0_buff_Ctrl.FLAG_receive_complete == 1)		//gpio_bit_set(GPIOA, GPIO_PIN_3);
 			SmartAudio_VTX_updatestate();
 		
 	}

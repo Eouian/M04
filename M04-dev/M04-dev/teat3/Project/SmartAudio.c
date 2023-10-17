@@ -42,7 +42,7 @@ static uint8_t CRC8(const uint8_t *data, uint8_t Len)
 
 uint8_t SmartAudio_tx(uint8_t *buff)//整理打包数据帧
 {
-	buff[0] = 0x00;
+	buff[0] = 0x00;//唤醒码
 	buff[1] = 0xAA;
 	buff[2] = 0x55;
 	buff[3] = Unify.HostCmd;
@@ -120,7 +120,7 @@ uint8_t SmartAudio_rx(uint8_t *buff, uint8_t buff_len)//接收解析Host命令
 	//<0x00><0xAA><0x55><cmd><length><data><crc>
 	for(Count = 0;Count<buff_len-3;Count ++)
 	{
-		if(buff[Count] == 0xAA && buff[Count+1] == 0x55)
+		if(buff[Count] == 0xAA && buff[Count+1] == 0x55)//定位数据帧
 		{
 			if(buff[Count+3] < (buff_len-Count-4))//判定数据帧能否完整存储在缓冲区
 			{
@@ -165,15 +165,14 @@ void SmartAudio_VTX_send(void)//VTX发送数据包
 	
 	memset(USART0_buff_Ctrl.BUFF_send,0,USART_buffsize);//清空缓存区
 	USART0_buff_Ctrl.send_buff_len = 0;//发送缓存区数据包长度值归零
-	USART0_buff_Ctrl.FLAG_send_complete = 0;
+	//USART0_buff_Ctrl.FLAG_send_complete = 0;
 }
 
 void  SmartAudio_VTX_updatestate(void)
 {
 	if(SmartAudio_rx(USART0_buff_Ctrl.BUFF_receive,USART0_buff_Ctrl.receive_buff_len) == 1)//判定当前缓冲区内的帧是否有效
 	{
-		USART0_buff_Ctrl.FLAG_send_complete = 1;
-		//delay_1ms(20);
+		//USART0_buff_Ctrl.FLAG_send_complete = 1;
 		SmartAudio_VTX_send();
 	}
 	memset(USART0_buff_Ctrl.BUFF_receive,0,USART_buffsize);

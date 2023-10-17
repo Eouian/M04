@@ -1,12 +1,12 @@
 #include "UART.h"
 
-
+//缓存区结构体
 USART_buff_Struct USART0_buff_Ctrl = 
 {
 	0,
 	0,
-	1,
-	0,
+	//1,
+	0,//初始化至接收状态
 	{0},
 	{0},
 };
@@ -47,7 +47,7 @@ static void NVIC_config(void)
 	nvic_priority_group_set(NVIC_PRIGROUP_PRE2_SUB2);   
     nvic_irq_enable(USART0_IRQn, 2, 2);                
     usart_interrupt_enable(USART0, USART_INT_IDLE);     //使能空闲中断
-    usart_interrupt_enable(USART0, USART_INT_RBNE);     //使能接收器非空中断
+    usart_interrupt_enable(USART0, USART_INT_RBNE);     //使能数据缓冲区非空中断
 }
 
 //USART0的初始化
@@ -59,35 +59,23 @@ void USART0_init(uint32_t baudrate)
 }
 
 //发送一个字节
-uint16_t USART_send_byte(uint8_t Byte)
+void USART_send_byte(uint8_t Byte)
 {
-	
-	uint16_t time_out = 0xffff;
 	usart_data_transmit(USART0,Byte);
-	
-	while(time_out != 0)
-	{
-		if(usart_flag_get(USART0,USART_FLAG_TBE) == SET)break;
-		time_out--;
-	}
-	return time_out;
 }
 
 //发送缓冲区数据
-uint16_t USART_send_buffer(uint8_t *buffer,uint16_t len)
-{
-	uint16_t time_out;
+void USART_send_buffer(uint8_t *buffer,uint16_t len)
+{	
 	while(len != 0)
 	{
-		time_out = USART_send_byte(*buffer);
-		if(time_out == 0)return time_out;
+		
 		buffer++;
 		len--;
 	}
-	return time_out;
 }
 
-//USART串口重定向：重定义fputc函数，在串口执行printf的输出
+//USART串口printf重定向
 int fputc(int ch, FILE *F)
 {
 	//uint16_t time_out = 0xffff;

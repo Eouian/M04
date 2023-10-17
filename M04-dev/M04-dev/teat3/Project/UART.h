@@ -10,9 +10,10 @@
 void USART_init(uint32_t baudrate);//IO、时钟、工作参数初始化
 void NVIC_config(void);//串口中断初始化
 void USART0_init(uint32_t baudrate);//USART0初始化
-uint16_t USART_send_byte(uint8_t Byte);
-uint16_t USART_send_buffer(uint8_t *buffer,uint16_t len);
+void USART_send_byte(uint8_t Byte);
+void USART_send_buffer(uint8_t *buffer,uint16_t len);
 int fputc(int ch, FILE *F);//printf的重定向
+//半双工通信
 void USART_send_only(void);
 void USART_receive_only(void);
 void USART_stop_receive(void);
@@ -25,7 +26,7 @@ typedef struct
 {
 	uint8_t send_buff_len;
 	uint8_t receive_buff_len;
-	uint8_t FLAG_send_complete;//1：完成，0：未完成
+	//uint8_t FLAG_send_complete;//1：完成，0：未完成
 	uint8_t FLAG_receive_complete;//1：完成，0：未完成
 	uint8_t BUFF_send[USART_buffsize];
 	uint8_t BUFF_receive[USART_buffsize];
