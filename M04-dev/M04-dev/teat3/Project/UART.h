@@ -19,7 +19,7 @@ void USART_receive_only(void);
 void USART_stop_receive(void);
 void USART_start_receive(void);
 /******************************/
-void led_init(void);
+void led_init(void);//测试灯——绿
 /******************************/
 //USART0_BUFF结构体
 typedef struct

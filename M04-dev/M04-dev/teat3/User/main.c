@@ -50,12 +50,15 @@ int main(void)
 	//gpio_bit_set(GPIOA, GPIO_PIN_3);
 		//USART0
 	USART0_init(4800);//smartaudio标定值4800
+	//USART_send_only();
+	//printf("HELLO world\n");
 	USART_receive_only();
 	//printf("Eouian");
 	//uint8_t a[4] = {0x66,0x77,0x88,0x99};
+	
     while(1)
 	{
-		
+		//USART_send_buffer(a,3);
 		delay_1ms_user(10);
 		Val=ADC_Get_Channel();
 		feedbackVal = Val;//将此刻的电压值作为PID的输入值
@@ -69,7 +72,7 @@ int main(void)
 		//printf("123");
 		//gpio_bit_reset(GPIOA,GPIO_PIN_3);
 		//USART_send_buffer(a,3);
-		if(USART0_buff_Ctrl.FLAG_receive_complete == 1)		//gpio_bit_set(GPIOA, GPIO_PIN_3);
+		if(USART0_buff_Ctrl.FLAG_receive_complete == 1)//确定接收完成后开始进入发送状态		//gpio_bit_set(GPIOA, GPIO_PIN_3);
 			SmartAudio_VTX_updatestate();
 		
 	}

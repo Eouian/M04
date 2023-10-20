@@ -69,8 +69,14 @@ void USART_send_buffer(uint8_t *buffer,uint16_t len)
 {	
 	while(len != 0)
 	{
-		
 		buffer++;
+
+		USART_send_byte(*buffer);
+		while(1)
+		{
+			if(usart_flag_get(USART0, USART_FLAG_TBE) == SET)break;//等待发送数据寄存器清空
+		}
+//		buffer++;
 		len--;
 	}
 }
@@ -118,6 +124,7 @@ void USART_start_receive(void)
 	usart_interrupt_enable(USART0,USART_INT_RBNE);//使能接收中断
 	USART_receive_only();
 }
+//测试灯io配置
 void led_init(void)
 {
 	rcu_periph_clock_enable(RCU_GPIOA);
@@ -135,17 +142,19 @@ void USART0_IRQHandler(void)
 
 		if(USART0_buff_Ctrl.receive_buff_len < USART_buffsize)//判定数据包是否能存入缓冲区
 		{
+			gpio_bit_set(GPIOA, GPIO_PIN_3); 
 			USART0_buff_Ctrl.BUFF_receive[USART0_buff_Ctrl.receive_buff_len] = usart_data_receive(USART0);
 			USART0_buff_Ctrl.receive_buff_len++;
 		}
 		else 
 			USART0_buff_Ctrl.BUFF_receive[USART_buffsize-1] = usart_data_receive(USART0);
+		
 	}
 	
 	if(RESET != usart_interrupt_flag_get(USART0,USART_INT_FLAG_IDLE))//空闲中断判定
 	{
 		usart_interrupt_flag_clear(USART0,USART_INT_FLAG_IDLE);
-		gpio_bit_set(GPIOA, GPIO_PIN_3);      /*************************************************/  
+		//gpio_bit_set(GPIOA, GPIO_PIN_3);      /*************************************************/  
 		if(USART0_buff_Ctrl.receive_buff_len > 0)
 		{
 			USART_stop_receive();
@@ -154,3 +163,4 @@ void USART0_IRQHandler(void)
 		}
 	}
 }
+

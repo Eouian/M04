@@ -1,6 +1,6 @@
 #include "SmartAudio.h"
 
-
+uint8_t i;
 SmartAudio_UNIFY Unify={
 	SmartAudio_V1,
 	SmartAudio_25mW,
@@ -120,7 +120,7 @@ uint8_t SmartAudio_rx(uint8_t *buff, uint8_t buff_len)//接收解析Host命令
 	//<0x00><0xAA><0x55><cmd><length><data><crc>
 	for(Count = 0;Count<buff_len-3;Count ++)
 	{
-		if(buff[Count] == 0xAA && buff[Count+1] == 0x55)//定位数据帧
+		if(buff[Count] == 0xAA && buff[Count+1] == 0x55)//定位数据帧帧头
 		{
 			if(buff[Count+3] < (buff_len-Count-4))//判定数据帧能否完整存储在缓冲区
 			{
@@ -130,7 +130,7 @@ uint8_t SmartAudio_rx(uint8_t *buff, uint8_t buff_len)//接收解析Host命令
 				if(CRC_frame == CRC_calculate)//判定CRC校验是否通过
 				{
 					Unify.HostCmd = buff[Count+2]>>1;
-					switch(Unify.HostCmd)//开始进行HostCmd解析
+					switch(Unify.HostCmd)//开始根据进行HostCmd解析
 					{
 						case SmartAudioCmd_GetSettingV1:
 							break;
@@ -155,14 +155,16 @@ uint8_t SmartAudio_rx(uint8_t *buff, uint8_t buff_len)//接收解析Host命令
 			}
 		}			
 	}return 0;
-}
+}//返回值0：此帧无效；1：此帧有效
 
 void SmartAudio_VTX_send(void)//VTX发送数据包
 {
+	
 	USART_send_only();
 	USART0_buff_Ctrl.send_buff_len = SmartAudio_tx(USART0_buff_Ctrl.BUFF_send);
 	USART_send_buffer(USART0_buff_Ctrl.BUFF_send,USART0_buff_Ctrl.send_buff_len);//实际发送处理
 	
+	//gpio_bit_set(GPIOA, GPIO_PIN_3);
 	memset(USART0_buff_Ctrl.BUFF_send,0,USART_buffsize);//清空缓存区
 	USART0_buff_Ctrl.send_buff_len = 0;//发送缓存区数据包长度值归零
 	//USART0_buff_Ctrl.FLAG_send_complete = 0;
@@ -170,14 +172,20 @@ void SmartAudio_VTX_send(void)//VTX发送数据包
 
 void  SmartAudio_VTX_updatestate(void)
 {
+	USART_send_only();
+	//USART_send_buffer(USART0_buff_Ctrl.BUFF_receive,USART0_buff_Ctrl.receive_buff_len);
 	if(SmartAudio_rx(USART0_buff_Ctrl.BUFF_receive,USART0_buff_Ctrl.receive_buff_len) == 1)//判定当前缓冲区内的帧是否有效
 	{
+		//gpio_bit_set(GPIOA, GPIO_PIN_3);
 		//USART0_buff_Ctrl.FLAG_send_complete = 1;
 		SmartAudio_VTX_send();
+		//delay_1ms(500);
+		//gpio_bit_reset(GPIOA, GPIO_PIN_3);
 	}
+	//清空缓冲区相应参数值
 	memset(USART0_buff_Ctrl.BUFF_receive,0,USART_buffsize);
 	USART0_buff_Ctrl.receive_buff_len = 0;
 	USART0_buff_Ctrl.FLAG_receive_complete = 0;
-	USART_start_receive();
+	USART_start_receive();//重新回到接收状态
 }
 
